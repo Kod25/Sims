@@ -1,0 +1,40 @@
+<section ng-form name="calendarApiConfigForm" layout="column">
+    <md-input-container class="md-block">
+        <label translate>tb.rulenode.calander-api-url</label>
+        <input ng-required="true" name="calendarUrl" ng-model="configuration.calendarUrl"/>
+        <div ng-messages="calendarApiConfigForm.calendarUrl.$error">
+            <div ng-message="required" translate>tb.rulenode.calander-api-url-required</div>
+        </div>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <label translate>tb.rulenode.request-method</label>
+        <md-select ng-model="configuration.requestMethod" ng-disabled="$root.loading">
+            <md-option ng-repeat="type in ruleNodeTypes.httpRequestType" ng-value="type">
+                {{ type }}
+            </md-option>
+        </md-select>
+    </md-input-container>
+    <div class="tb-container" ng-class="configuration.serviceAccountKeyFileName ? 'ng-valid' : 'ng-invalid'">
+        <label class="tb-label" translate>tb.rulenode.calendar-service-account-key</label>
+        <div flow-init="{singleFile:true}" flow-file-added="serviceAccountFileAdded($file)"
+             class="tb-file-select-container">
+            <div class="tb-file-clear-container">
+                <md-button ng-click="clearServiceAccountFile()" class="tb-file-clear-btn md-icon-button md-primary"
+                           aria-label="{{ 'action.remove' | translate }}">
+                    <md-tooltip md-direction="top">
+                        {{ 'action.remove' | translate }}
+                    </md-tooltip>
+                    <md-icon aria-label="{{ 'action.remove' | translate }}" class="material-icons">close</md-icon>
+                </md-button>
+            </div>
+            <div class="alert tb-flow-drop" flow-drop>
+                <label for="serviceAccountKeySelect" translate>tb.rulenode.drop-file</label>
+                <input class="file-input" flow-btn id="serviceAccountKeySelect">
+            </div>
+        </div>
+    </div>
+    <div class="dropdown-messages">
+        <div ng-if="!configuration.serviceAccountKeyFileName" class="tb-error-message" translate>tb.rulenode.no-file</div>
+        <div ng-if="configuration.serviceAccountKeyFileName">{{configuration.serviceAccountKeyFileName}}</div>
+    </div>
+</section>

@@ -18,9 +18,12 @@
 import filterComponents from './components/filter';
 import enrichmentComponents from './components/enrichment';
 import transformComponents from './components/transform';
+import googleComponents from './components/google';
 import CustomRuleNodeCoreConfig from './custom-nodes-config';
 
+import ruleNodesTypes from './custom-nodes-types.constant';
+
 export default angular.module('thingsboard.ruleChain.config',
-    [filterComponents, enrichmentComponents, transformComponents])
+    [ruleNodesTypes, filterComponents, enrichmentComponents, transformComponents, googleComponents])
     .config(CustomRuleNodeCoreConfig)
     .name;

@@ -21,6 +21,13 @@ export default function addRuleNodeCoreLocaleEnglish($translateProvider) {
                 "msg-key": "Message key",
                 "input-key": "Input key",
                 "output-key": "Output key",
+                "calander-api-url": "Calenar url",
+                "calander-api-url-required": "Calendar url is required",
+                "request-method": "Request method",
+                "calendar-service-account-key": "Google Calendar service account key file",
+                "calendar-service-account-key-required": "Google Calendar service account key file is required",
+                "drop-file": "Drop a file or click to select a file to upload",
+                "no-file": "No file selected"
             }
         }
     };
