@@ -1,4 +1,4 @@
-import calendarApiCallConfigTemplate from './calendar-api-call-config-tpl.html';
+import calendarApiCallConfigTemplate from './calendar-api-call-config.tpl.html';
 
 export default function CalendarApiCallConfigDirective($compile){
   var linker = function(scope, element, attrs, ngModelCtrl){
