@@ -4,16 +4,15 @@ import sys
 import paho.mqtt.client as mqtt
 import json
 import random
-#hej
 
-THINGSBOARD_HOST = 'thingsboard-af.northeurope.cloudapp.azure.com'
+THINGSBOARD_HOST = 'vaconnectpilot.northeurope.cloudapp.azure.com'
 
-ACCESS_TOKEN = 'AAAAAAAAAAAAAAAAAAAA'
+ACCESS_TOKEN = '45Q13RQebkxLZNv3M41f'
 
 # Data capture and upload interval in seconds. Less interval will eventually hang the DHT22.
 INTERVAL=5
 
-sensor_data = {'analog1': 0, 'analog2': 0, 'analog3': 0, 'digital1': 0, 'digital2': 0, 'digital3': 0}
+sensor_data = {'analog1': 0, 'analog2': 0, 'analog3': 0, 'digital1': 0, 'digital2': 0, 'digital3': 0, 'digital4': 0, 'digital5':0}
 
 next_reading = time.time()
 
@@ -59,13 +58,14 @@ try:
         else:
             engine = 0
 
-        sensor_data['analog1'] = volume
-        sensor_data['analog2'] = flow_in
+        sensor_data['analog1'] = flow_in
+        sensor_data['analog2'] = volume
         sensor_data['analog3'] = flow_out
         sensor_data['digital1'] = alarm_full
-        sensor_data['digital2'] = alarm_empty
-        sensor_data['digital3'] = engine
-
+        sensor_data['digital2'] = 0
+        sensor_data['digital3'] = 0
+        sensor_data['digital4'] = alarm_empty
+        sensor_data['digital5'] = engine
         print(sensor_data)
 
         counter = counter + 1
