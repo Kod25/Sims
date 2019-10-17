@@ -4,6 +4,7 @@ import sys
 import paho.mqtt.client as mqtt
 import json
 import random
+#hej
 
 THINGSBOARD_HOST = 'thingsboard-af.northeurope.cloudapp.azure.com'
 
