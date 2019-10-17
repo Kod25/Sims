@@ -13,20 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.thingsboard.rule.engine.node.filter;
+package org.thingsboard.rule.engine.node.google;
 
 import lombok.Data;
 import org.thingsboard.rule.engine.api.NodeConfiguration;
 
-@Data
-public class TbKeyFilterNodeConfiguration implements NodeConfiguration<TbKeyFilterNodeConfiguration> {
 
-    private String key;
+@Data
+public class TbCalendarApiCallNodeConfiguration implements NodeConfiguration<TbCalendarApiCallNodeConfiguration>{
+
+    private String calendarUrl;
+    private String requestMethod;
+    private String serviceAccountKey;
+    private String serviceAccountKeyFileName;
 
     @Override
-    public TbKeyFilterNodeConfiguration defaultConfiguration() {
-        TbKeyFilterNodeConfiguration configuration = new TbKeyFilterNodeConfiguration();
-        configuration.setKey(null);
+    public TbCalendarApiCallNodeConfiguration defaultConfiguration() {
+        TbCalendarApiCallNodeConfiguration configuration = new TbCalendarApiCallNodeConfiguration();
+        configuration.setCalendarUrl("Calendar Url");
+        configuration.setRequestMethod("GET");
         return configuration;
     }
 }
