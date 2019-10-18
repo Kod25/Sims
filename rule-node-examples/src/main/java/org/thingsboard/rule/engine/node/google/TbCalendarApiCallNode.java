@@ -57,6 +57,7 @@ import static org.thingsboard.common.util.DonAsynchron.withCallback;
 
     public class TbCalendarApiCallNode implements TbNode{
         private static final String MESSAGE = "message";
+        private static final String CALENDAR_ID = "calendarId";
         private static final String ERROR = "error";
 
         private TbCalendarApiCallNodeConfiguration config;

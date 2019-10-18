@@ -22,7 +22,7 @@ import org.thingsboard.rule.engine.api.NodeConfiguration;
 @Data
 public class TbCalendarApiCallNodeConfiguration implements NodeConfiguration<TbCalendarApiCallNodeConfiguration>{
 
-    private String calendarUrl;
+    private String calendarId;
     private String requestMethod;
     private String serviceAccountKey;
     private String serviceAccountKeyFileName;
@@ -30,7 +30,7 @@ public class TbCalendarApiCallNodeConfiguration implements NodeConfiguration<TbC
     @Override
     public TbCalendarApiCallNodeConfiguration defaultConfiguration() {
         TbCalendarApiCallNodeConfiguration configuration = new TbCalendarApiCallNodeConfiguration();
-        configuration.setCalendarUrl("Calendar Url");
+        configuration.setCalendarId("Calendar Id");
         configuration.setRequestMethod("GET");
         return configuration;
     }
