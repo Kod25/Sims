@@ -71,6 +71,11 @@
             <artifactId>google-auth-library-oauth2-http</artifactId>
             <version>0.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.api</groupId>
+            <artifactId>gax</artifactId>
+            <version>1.49.0</version>
+        </dependency>
     </dependencies>
 
 

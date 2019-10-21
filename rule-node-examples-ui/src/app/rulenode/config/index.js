@@ -16,12 +16,12 @@
 
 
 
-import googleComponents from './components/google';
+import externalComponents from './components/external';
 import CustomRuleNodeCoreConfig from './custom-nodes-config';
 
 import ruleNodesTypes from './custom-nodes-types.constant';
 
 export default angular.module('thingsboard.ruleChain.config',
-    [ruleNodesTypes, googleComponents])
+    [ruleNodesTypes, externalComponents])
     .config(CustomRuleNodeCoreConfig)
     .name;
