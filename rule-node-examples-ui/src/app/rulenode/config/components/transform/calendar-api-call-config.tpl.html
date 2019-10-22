@@ -6,14 +6,6 @@
             <div ng-message="required" translate>tb.rulenode.calendar-id-required</div>
         </div>
     </md-input-container>
-    <md-input-container class="md-block">
-        <label translate>tb.rulenode.request-method</label>
-        <md-select ng-model="configuration.requestMethod" ng-disabled="$root.loading">
-            <md-option ng-repeat="type in ruleNodeTypes.httpRequestType" ng-value="type">
-                {{ type }}
-            </md-option>
-        </md-select>
-    </md-input-container>
     <div class="tb-container" ng-class="configuration.serviceAccountKeyFileName ? 'ng-valid' : 'ng-invalid'">
         <label class="tb-label" translate>tb.rulenode.calendar-service-account-key</label>
         <div flow-init="{singleFile:true}" flow-file-added="serviceAccountFileAdded($file)"

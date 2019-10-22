@@ -1,5 +1,5 @@
-/*
- * Copyright © 2016-2018 The Thingsboard Authors
+/**
+ * Copyright © 2018 The Thingsboard Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.thingsboard.rule.engine.node.filter;
 
+import lombok.Data;
+import org.thingsboard.rule.engine.api.NodeConfiguration;
 
-import filterComponents from './components/filter';
-import enrichmentComponents from './components/enrichment';
-import transformComponents from './components/transform';
-import CustomRuleNodeCoreConfig from './custom-nodes-config';
+@Data
+public class TbKeyFilterNodeConfiguration implements NodeConfiguration<TbKeyFilterNodeConfiguration> {
 
-export default angular.module('thingsboard.ruleChain.config',
-    [filterComponents, enrichmentComponents, transformComponents])
-    .config(CustomRuleNodeCoreConfig)
-    .name;
+    private String key;
+
+    @Override
+    public TbKeyFilterNodeConfiguration defaultConfiguration() {
+        TbKeyFilterNodeConfiguration configuration = new TbKeyFilterNodeConfiguration();
+        configuration.setKey(null);
+        return configuration;
+    }
+}

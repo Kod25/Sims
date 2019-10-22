@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.thingsboard.rule.engine.node.external;
+package org.thingsboard.rule.engine.node.transform;
 
 import lombok.Data;
 import org.thingsboard.rule.engine.api.NodeConfiguration;
@@ -31,7 +31,7 @@ public class TbCalendarApiCallNodeConfiguration implements NodeConfiguration<TbC
     public TbCalendarApiCallNodeConfiguration defaultConfiguration() {
         TbCalendarApiCallNodeConfiguration configuration = new TbCalendarApiCallNodeConfiguration();
         configuration.setCalendarId("Calendar Id");
-        configuration.setRequestMethod("GET");
+        //configuration.setRequestMethod("GET");
         return configuration;
     }
 }

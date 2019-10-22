@@ -14,13 +14,8 @@
  * limitations under the License.
  */
 
+import CheckKeyConfigDirective from './check-key-config.directive';
 
-import filterComponents from './components/filter';
-import enrichmentComponents from './components/enrichment';
-import transformComponents from './components/transform';
-import CustomRuleNodeCoreConfig from './custom-nodes-config';
-
-export default angular.module('thingsboard.ruleChain.config',
-    [filterComponents, enrichmentComponents, transformComponents])
-    .config(CustomRuleNodeCoreConfig)
+export default angular.module('thingsboard.ruleChain.config.filter', [])
+    .directive('tbFilterNodeCheckKeyConfig', CheckKeyConfigDirective)
     .name;

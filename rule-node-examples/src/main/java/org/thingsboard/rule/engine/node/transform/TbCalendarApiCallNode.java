@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.thingsboard.rule.engine.node.external;
+package org.thingsboard.rule.engine.node.transform;
+
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
-import com.google.api.client.json.JsonFactory;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.Calendar;
@@ -30,17 +31,17 @@ import org.thingsboard.rule.engine.api.util.TbNodeUtils;
 import org.thingsboard.server.common.data.plugin.ComponentType;
 import org.thingsboard.server.common.msg.TbMsg;
 
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
-
 
 import static org.thingsboard.common.util.DonAsynchron.withCallback;
 
     @Slf4j
     @RuleNode(
             type = ComponentType.EXTERNAL,
-            name = "Calendar Api Call",
+            name = "calendar",
             configClazz = TbCalendarApiCallNodeConfiguration.class,
             nodeDescription = "Get events from a Google Calendar",
             nodeDetails = "Will get information from a Google Calendar API. The response message can be accessed with <code>metadata.message</code> " ,
@@ -83,9 +84,6 @@ import static org.thingsboard.common.util.DonAsynchron.withCallback;
                 JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
                 // Build service account credential.
 
-
-
-                /* TODO FIXA SÅ ATT DET GÅR ATT LÄGGA IN JSON FIL FÖR CREDENTIAL!!!!!!! */
 
 
                 GoogleCredential credential = GoogleCredential
