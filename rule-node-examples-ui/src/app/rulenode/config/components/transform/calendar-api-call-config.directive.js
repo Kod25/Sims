@@ -25,6 +25,40 @@ export default function CalendarApiCallConfigDirective($compile){
     var template = calendarApiCallConfigTemplate;
     element.html(template);
 
+    scope.serviceAccountFileAdded = ($file) => {
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                scope.$apply(function () {
+                    if (event.target.result) {
+                        ngModelCtrl.$setDirty();
+                        var addedFile = event.target.result;
+                        if (addedFile && addedFile.length > 0) {
+                            scope.configuration.serviceAccountKeyFileName = $file.name;
+                            scope.configuration.serviceAccountKey = addedFile;
+                        }
+                        scope.updateValidity();
+                    }
+                });
+            };
+            reader.readAsText($file.file);
+        };
+
+        scope.clearServiceAccountFile = () => {
+            ngModelCtrl.$setDirty();
+            scope.configuration.serviceAccountKeyFileName = null;
+            scope.configuration.serviceAccountKey = null;
+            scope.updateValidity();
+        };
+
+        scope.updateValidity = () => {
+            var keysValid = true;
+            var config = scope.configuration;
+            if (!config.serviceAccountKeyFileName || !config.serviceAccountKey) {
+                keysValid = false;
+            }
+            ngModelCtrl.$setValidity('SAKey', keysValid);
+        };
+
     scope.$watch('configuraton', function(newConfiguration, oldConfiguration){
       if(!angular.equals(newConfiguration, oldConfiguration)){
         ngModelCtrl.$setViewValue(scope.configuration);
@@ -38,7 +72,9 @@ export default function CalendarApiCallConfigDirective($compile){
   return{
     restrict: "E",
     require: "^ngModel",
-    scope: {},
+    scope: {
+        readonly: '=ngReadonly'
+    },
     link: linker
   };
 }

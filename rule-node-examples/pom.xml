@@ -80,21 +80,24 @@
             <scope>provided</scope>
             <version>${guava.version}</version>
         </dependency>
-        <!--<dependency>
+        <dependency>
             <groupId>com.google.auth</groupId>
             <artifactId>google-auth-library-oauth2-http</artifactId>
             <version>0.18.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.google.api</groupId>
             <artifactId>gax</artifactId>
             <version>1.49.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.google.api-client</groupId>
             <artifactId>google-api-client</artifactId>
             <version>1.30.4</version>
-        </dependency>-->
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>com.google.apis</groupId>
             <artifactId>google-api-services-calendar</artifactId>

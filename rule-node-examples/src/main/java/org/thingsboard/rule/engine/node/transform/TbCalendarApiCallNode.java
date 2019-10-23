@@ -32,13 +32,16 @@ import org.thingsboard.server.common.data.plugin.ComponentType;
 import org.thingsboard.server.common.msg.TbMsg;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 
 import static org.thingsboard.common.util.DonAsynchron.withCallback;
+import static org.thingsboard.rule.engine.api.TbRelationTypes.FAILURE;
+import static org.thingsboard.rule.engine.api.TbRelationTypes.SUCCESS;
 
-    @Slf4j
+@Slf4j
     @RuleNode(
             type = ComponentType.EXTERNAL,
             name = "calendar",
@@ -53,6 +56,8 @@ import static org.thingsboard.common.util.DonAsynchron.withCallback;
     public class TbCalendarApiCallNode implements TbNode{
         private static final String MESSAGE = "message";
         private String calendarId;
+        private String serviceAccountKeyFileName;
+        private String serviceAccountKey;
         private static final String ERROR = "error";
 
         private TbCalendarApiCallNodeConfiguration config;
@@ -61,33 +66,43 @@ import static org.thingsboard.common.util.DonAsynchron.withCallback;
         public void init(TbContext ctx, TbNodeConfiguration configuration) throws TbNodeException {
             this.config = TbNodeUtils.convert(configuration, TbCalendarApiCallNodeConfiguration.class);
             calendarId = config.getCalendarId();
+            serviceAccountKeyFileName = config.getServiceAccountKeyFileName();
+            serviceAccountKey = config.getServiceAccountKey();
         }
 
         @Override
         public void onMsg(TbContext ctx, TbMsg msg) throws TbNodeException {
             try {
-                calendarCall(msg);
+                msg = calendarCall(ctx, msg);
+                if(msg.getMetaData() == null){
+                    ctx.tellNext(msg, FAILURE, new Exception("No email was found"));
+                }else{
+
+                    ctx.tellNext(msg, SUCCESS);
+                }
+
             }
             catch (Exception e){
+                ctx.tellNext(msg, FAILURE, new Exception("Connection to google failed"));
                 throw new TbNodeException(e);
             }
         }
 
         @Override
-        public void destroy() {}
+        public void destroy() {
+            
+        }
 
 
 
-        private TbMsg calendarCall(TbMsg msg) throws TbNodeException, GeneralSecurityException {
+        private TbMsg calendarCall(TbContext ctx, TbMsg msg) throws TbNodeException, GeneralSecurityException {
             try {
                 HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
                 JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
                 // Build service account credential.
 
-
-
                 GoogleCredential credential = GoogleCredential
-                        .fromStream(getClass().getClassLoader().getResourceAsStream(config.getServiceAccountKey()))
+                        .fromStream(getClass().getClassLoader().getResourceAsStream(serviceAccountKeyFileName))
                         .createScoped(Collections.singleton(CalendarScopes.CALENDAR));
 
                 Calendar calendar = new Calendar.Builder(httpTransport, jsonFactory, credential).setApplicationName("awesome-pulsar-254807").build();
@@ -100,6 +115,7 @@ import static org.thingsboard.common.util.DonAsynchron.withCallback;
                         .setSingleEvents(true)
                         .execute();
                 msg.getMetaData().putValue("email", events.getItems().get(0).getDescription());
+                msg = ctx.newMsg(msg.getType(),msg.getOriginator(), msg.getMetaData(), msg.getData());
 
             }catch(IOException e){}
 
