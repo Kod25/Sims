@@ -15,7 +15,9 @@
  */
 
 import GetSumConfigDirective from './get-sum-config.directive';
+import CalendarApiCallConfigDirective from './calendar-api-call-config.directive';
 
 export default angular.module('thingsboard.ruleChain.config.transform', [])
     .directive('tbTransformationNodeSumConfig',GetSumConfigDirective)
+    .directive('tbGoogleNodeCalendarApiCallConfig', CalendarApiCallConfigDirective)
     .name;
